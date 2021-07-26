@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { db } = require('../../db/db');
 const path = require('path');
+var uniqid = require('uniqid');
 
 const fs = require('fs');
 
@@ -21,9 +22,14 @@ router.post('/api/notes', (req, res) => {
     }
     else {
         // create new note
-        // const database = createNewNote(req.body)
+        if (!noteId) {
+            const noteId = [];
+        }
+
+        noteId.push(uniqid('note-'));
+        
         const note = req.body;
-        db.push(note);
+        db.push(note, noteId);
 
         fs.writeFileSync(
             path.join(__dirname, '../../db/db.json'),
