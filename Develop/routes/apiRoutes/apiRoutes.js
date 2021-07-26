@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { db } = require('../../db/db');
 const path = require('path');
-var uniqid = require('uniqid');
+const uniqid = require('uniqid');
 
 const fs = require('fs');
 
@@ -26,7 +26,9 @@ router.post('/api/notes', (req, res) => {
             const noteId = [];
         }
 
-        noteId.push(uniqid('note-'));
+        let id = uniqid();
+
+        noteId.push(id);
         
         const note = req.body;
         db.push(note, noteId);
